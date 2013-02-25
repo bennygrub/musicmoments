@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<% if @moment_uri.host == 'www.youtube.com' || @moment_uri.host == 'youtu.be' %>
+  <div class="">
+    <iframe class="video_wrapper" width="560" height="315" src="http://www.youtube.com/embed/<%= @youtube_id%>" frameborder="0" allowfullscreen></iframe>
+  </div>
+<% elsif @moment_uri.host == 'vimeo.com' %>
+  <div class="">
+    <iframe class="video_wrapper" src="http://player.vimeo.com/video/<%= @youtube_id %>" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  </div>
+<% else %>
+    Please Re-enter your video link please.
+<% end %>
+
+
+<p>
+  <b>Name:</b>
+  <%= @moment.name %>
+</p>
+
+<p>
+  <b>Song:</b>
+  <%= @moment.song %>
+</p>
+
+<p>
+  <b>Moment Members:</b>
+  <% @moment.users.each do |user| %> <%= user.email %>, <% end %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @moment.year %>
+</p>
+
+<p>
+  <b>Season:</b>
+  <%= @moment.season %>
+</p>
+
+
+<%= link_to 'Edit', edit_moment_path(@moment) %> |
+<%= link_to 'Back', current_user %>

@@ -1,3 +1,6 @@
 <h1><%= @title %></h1>
-<p>Profile Page</p>
-<h3><%= link_to 'Create a Music Moment >>', new_user_registration_path %></h3>
+<h3>Your Moments</h3>
+<% @user.moments.each do |moment| %>
+	<p><%= link_to moment.name, moment_path(moment)%></p>
+<% end %>
+<h3><%= link_to 'Create a Music Moment >>', new_moment_path %></h3>

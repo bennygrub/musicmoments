@@ -1,5 +1,8 @@
 Musicmoments::Application.routes.draw do
   
+  resources :moments
+
+
   devise_for :users
 
   root :to => 'page#home'
