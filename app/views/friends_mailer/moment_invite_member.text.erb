@@ -1,0 +1,5 @@
+Hello <%= @invitee.email %>,
+
+<%= @inviter.email %> invited you to join the music moment: <%= @moment.name %>. Click the link below to check it out.
+
+<%= moment_path(@moment)%>

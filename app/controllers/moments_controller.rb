@@ -75,6 +75,15 @@ class MomentsController < ApplicationController
 
     respond_to do |format|
       if @moment.update_attributes(params[:moment])
+
+        #@moment.split(/, */).each do |friend|
+         # @user = User.find_by_email(friend)
+          #if MomentsUser.where("user_id = ?", @user.id).count < 1 && TempUser.where("email = ?", friend).count < 1
+
+         # end
+
+        #end
+
         format.html { redirect_to @moment, notice: 'Moment was successfully updated.' }
         format.json { head :no_content }
       else
