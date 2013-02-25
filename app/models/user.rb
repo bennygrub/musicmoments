@@ -10,4 +10,15 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_and_belongs_to_many :moments
 
+  after_create :connect_to_moments
+
+  def connect_to_moments
+  	if TempUser.where("email = ?", self.email).count > 0
+  		TempUser.where("email = ?", self.email).each do |connect|
+  			MomentsUsers.create(:moment_id => connect.moment_id, :user_id => self.id)
+  			connect.destroy
+  		end
+  	end
+  end
+
 end

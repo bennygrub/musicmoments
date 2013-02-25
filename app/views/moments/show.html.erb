@@ -26,7 +26,10 @@
   <b>Moment Members:</b>
   <% @moment.users.each do |user| %> <%= user.email %>, <% end %>
 </p>
-
+<p>
+  <b>Pending Members:</b>
+  <% @moment.temp_users.each do |user| %> <%= user.email %>, <% end %>
+</p>
 <p>
   <b>Year:</b>
   <%= @moment.year %>

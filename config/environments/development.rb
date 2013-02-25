@@ -34,4 +34,18 @@ Musicmoments::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+
+ActionMailer::Base.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :domain               => "gmail.com",
+  :user_name            => "blgruber@gmail.com",
+  :password             => "letmein1",
+  :authentication       => "plain",
+  :enable_starttls_auto => true
+}
+
+#ActionMailer::Base.default_url_options[:host] = "localhost:3000"
+
 end

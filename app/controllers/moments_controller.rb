@@ -16,6 +16,7 @@ class MomentsController < ApplicationController
   def show
     @moment = Moment.find(params[:id])
     @moment_uri = URI(@moment.song)
+    @temp_users = TempUser.where("moment = ?", @moment.id)
 
     @regex_youtube = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11,11}).*/
     @regex_vimeo = /https?:\/\/(?:www\.)?vimeo.com\/(?:channels\/|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/

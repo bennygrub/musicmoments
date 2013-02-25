@@ -2,6 +2,7 @@ class Moment < ActiveRecord::Base
   attr_accessible :friends, :name, :season, :song, :year, :current_user
   attr_accessor :friends, :current_user	
   has_and_belongs_to_many :users
+  has_many :temp_users
 
   before_save :sanitize_url
   after_save :friend_process, :self_moment
@@ -12,8 +13,8 @@ class Moment < ActiveRecord::Base
   	  self.friends.split(/, */).each do |friend|
       if User.find_by_email(friend).nil?
       	current_user = User.find(self.current_user)
-        #send emails
-        FriendsMailer.moment_invite(current_user, friend).deliver
+        TempUser.create(:moment_id => self.id, :email => friend) #create temp user
+        FriendsMailer.moment_invite(current_user, friend).deliver #send emails
       else
       	user = User.find_by_email(friend)
         MomentsUsers.create(:moment_id => self.id, :user_id => user.id)
