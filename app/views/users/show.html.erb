@@ -1,4 +1,10 @@
 <h1><%= @title %></h1>
+<h3>Feed (followers plus themselves):</h3>
+<% @moments.each do |moment| %>
+	<p><%= moment.name %></p>
+<% end %>
+
+
 <h3>Your Moments</h3>
 <% @user.moments.each do |moment| %>
 	<p><%= link_to moment.name, moment_path(moment)%></p>

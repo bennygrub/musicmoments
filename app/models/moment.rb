@@ -8,7 +8,6 @@ class Moment < ActiveRecord::Base
   after_save :friend_process
   after_create :self_moment
 
-  validates :name, presence: true
   validates :song, presence: true
   validates :song, :format =>{ :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix, :message => " is not valid, it must be a youtube.com or vimeo.com url" }
   
@@ -32,6 +31,13 @@ class Moment < ActiveRecord::Base
 
   def self_moment
   	MomentsUsers.create(:moment_id => self.id, :user_id => self.current_user)
+  end
+
+  def self.from_users_followed_by(user)
+    followed_user_ids = "SELECT followed_id FROM relationships
+                         WHERE follower_id = :user_id"
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", 
+          user_id: user.id)
   end
 
   def sanitize_url

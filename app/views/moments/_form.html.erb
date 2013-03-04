@@ -12,23 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
     <%= f.label 'Song (please use a youtube or vimeo URL)' %><br />
     <%= f.text_field :song, :placeholder => "example: http://www.youtube.com/watch?v=EBLuWKnKIn0" %>
   </div>
   <div class="field">
     <%= f.label 'Date' %><br />
-    <%= f.date_select :year %>
+    <%= f.date_select :year, :order => [:year], :start_year => 1970, :end_year => Time.now.year, :prompt => {:year => "Select Year"} %>
   </div>
   <div class="field">
-    <%= f.label :season %><br />
-    <%= f.text_field :season %>
-  </div>
-  <div class="field">
-    <%= f.label 'Friends (comma seperated)' %><br />
+    <%= f.label 'Email of Friends (comma seperated)' %><br />
     <%= f.text_field :friends %>
   </div>
   <%= f.hidden_field :current_user, :value => current_user.id %>
