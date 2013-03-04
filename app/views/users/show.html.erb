@@ -1,12 +1,41 @@
 <h1><%= @title %></h1>
-<h3>Feed (followers plus themselves):</h3>
-<% @moments.each do |moment| %>
-	<p><%= moment.name %></p>
+<% if current_user == @user %>
+	<h3>Feed (followers plus themselves):</h3>
+	<p>------------------------------------------------------</p>
+	<% if !@moments.nil? %>
+		<% @moments.each do |moment| %>
+			<p>Song: <%= link_to moment.song, moment_path(moment)%></p>
+			<p>Posted By: <%= link_to User.find(moment.user_id).username, @user %></p>
+			<% @tagged = moment.users.where("user_id != ?", current_user.id) %>
+			<% if @tagged.count > 0 %>
+				<p>Also Tagged: 
+					<% @tagged.each do |user| %> 
+						<% if MomentsUsers.where("moment_id = ? AND user_id = ?", moment.id, user.id).first.approved == true %>
+							<%= link_to user.username, user %>
+						<% else %>
+							<%= user.username %>
+						<% end %>
+					<% end %>
+				</p>
+			<% end %>
+			<p>------------------------------------------------------</p>
+		<% end %>
+		<%= render 'moments' %>
+	<% else %>
+		<p>You currently have no moments and are not following anyone with a moment.</p>
+	<% end %>
+	<h3><%= link_to 'Create a Music Moment >>', new_moment_path %></h3>
+<% else %>
+	<div id="follow_form">
+		<% if current_user.following?(@user) %>
+			<p><%= render 'unfollow' %></p>
+		<% else %> 
+			<p><%= render 'follow', %></p>
+		<% end %>
+	</div>
+	<div id="user_moments">
+		<% if current_user.following?(@user) %>
+			<%= render 'moments' %>
+		<% end %>
+	</div>
 <% end %>
-
-
-<h3>Your Moments</h3>
-<% @user.moments.each do |moment| %>
-	<p><%= link_to moment.name, moment_path(moment)%></p>
-<% end %>
-<h3><%= link_to 'Create a Music Moment >>', new_moment_path %></h3>

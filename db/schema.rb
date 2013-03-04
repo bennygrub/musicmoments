@@ -11,22 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304155223) do
+ActiveRecord::Schema.define(:version => 20130304220645) do
 
   create_table "moments", :force => true do |t|
-    t.string   "name"
     t.string   "song"
     t.datetime "year"
-    t.string   "season"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "moments_users", :force => true do |t|
     t.integer  "moment_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "approved",   :default => false
   end
 
   create_table "relationships", :force => true do |t|
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20130304155223) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
   create_table "users", :force => true do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130304155223) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,3 +1,3 @@
 class MomentsUsers < ActiveRecord::Base
-  attr_accessible :moment_id, :user_id
+  attr_accessible :moment_id, :user_id, :approved
 end

@@ -1,5 +1,5 @@
 class Moment < ActiveRecord::Base
-  attr_accessible :friends, :name, :season, :song, :year, :current_user
+  attr_accessible :friends, :name, :season, :song, :year, :current_user, :user_id
   attr_accessor :friends, :current_user	
   has_and_belongs_to_many :users
   has_many :temp_users
@@ -14,23 +14,23 @@ class Moment < ActiveRecord::Base
   def friend_process
 	  current_user = User.find(self.current_user)#get the current user
     self.friends.split(/, */).each do |friend| #split the list of friends and iterate through each
-      if User.find_by_email(friend).nil? #check to see if they are a not a member
-        if TempUser.where("email = ? AND moment_id = ?", friend, self.id).count < 1 #check to see they already have been invited
-          TempUser.create(:moment_id => self.id, :email => friend) #create temp user
-          FriendsMailer.moment_invite(current_user, friend, self).deliver #send non-member invite
-        end
+      if User.find_by_email(friend).nil? && User.find_by_username(friend).nil? #check to see if they are a not a member
+        # if TempUser.where("email = ? AND moment_id = ?", friend, self.id).count < 1  #check to see they already have been invited
+          TempUser.create(:moment_id => self.id, :email => friend, :name => friend) #create temp user
+          # FriendsMailer.moment_invite(current_user, friend, self).deliver #send non-member invite
+        #end
       else # they are a member
-        user = User.find_by_email(friend) #set user variable to the user object of the email
+        User.find_by_email(friend) ? user = User.find_by_email(friend) : user = User.find_by_username(friend)#set user variable to the user object of the email/username
         if MomentsUsers.where("user_id = ? AND moment_id = ?", user.id, self.id).count < 1 #check to see they already have been invited
           MomentsUsers.create(:moment_id => self.id, :user_id => user.id) #create connection between user and moment
-          FriendsMailer.moment_invite_member(current_user, user, self).deliver #send member invite
+          #FriendsMailer.moment_invite_member(current_user, user, self).deliver #send member invite
         end
       end
     end
   end
 
   def self_moment
-  	MomentsUsers.create(:moment_id => self.id, :user_id => self.current_user)
+  	MomentsUsers.create(:moment_id => self.id, :user_id => self.current_user, :approved => true)
   end
 
   def self.from_users_followed_by(user)

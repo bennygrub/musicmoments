@@ -1,12 +1,6 @@
 <p id="notice"><%= notice %></p>
 <%= render "video"%>
 
-
-<p>
-  <b>Name:</b>
-  <%= @moment.name %>
-</p>
-
 <p>
   <b>Song:</b>
   <%= @moment.song %>
@@ -17,17 +11,8 @@
   <% @moment.users.each do |user| %> <%= user.email %>, <% end %>
 </p>
 <p>
-  <b>Pending Members:</b>
-  <% @moment.temp_users.each do |user| %> <%= user.email %>, <% end %>
-</p>
-<p>
   <b>Year:</b>
   <%= @moment.year %>
-</p>
-
-<p>
-  <b>Season:</b>
-  <%= @moment.season %>
 </p>
   
 <% if !current_user.nil? %>

@@ -1,0 +1,4 @@
+				<h3>Moments</h3>
+				<% @user.moments.each do |moment| %>
+					<p><%= link_to moment.song, moment_path(moment)%></p>
+				<% end %>
