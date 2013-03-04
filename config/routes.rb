@@ -1,5 +1,9 @@
 Musicmoments::Application.routes.draw do
   
+  get "relationships/create"
+
+  get "relationships/destroy"
+
   resources :moments
 
 
@@ -11,7 +15,12 @@ Musicmoments::Application.routes.draw do
 
   get "page/contact"
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
