@@ -1,4 +1,7 @@
+			<% @users_moments = Moment.where("user_id = ?", @user.id) %>
+			<% if @users_moments.count > 0 %>
 				<h3>Moments</h3>
-				<% @user.moments.each do |moment| %>
+				<% @users_moments.each do |moment| %>
 					<p><%= link_to moment.song, moment_path(moment)%></p>
 				<% end %>
+			<% end %>

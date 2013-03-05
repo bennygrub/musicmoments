@@ -29,9 +29,9 @@ class Moment < ActiveRecord::Base
     end
   end
 
-  def self_moment
-  	MomentsUsers.create(:moment_id => self.id, :user_id => self.current_user, :approved => true)
-  end
+  #def self_moment
+  #	MomentsUsers.create(:moment_id => self.id, :user_id => self.current_user, :approved => true)
+  #end
 
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships

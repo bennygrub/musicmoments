@@ -16,7 +16,7 @@
 </p>
   
 <% if !current_user.nil? %>
-  <% if MomentsUsers.where("user_id = ? AND moment_id = ?", current_user.id, @moment.id).count > 0 %>
+  <% if Moment.where("user_id = ? AND id = ?", current_user.id, @moment.id).count > 0 %>
     <%= link_to 'Edit', edit_moment_path(@moment) %> |
   <% end %>
 <% end %>

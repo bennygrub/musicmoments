@@ -5,22 +5,25 @@
 	<% if !@moments.nil? %>
 		<% @moments.each do |moment| %>
 			<p>Song: <%= link_to moment.song, moment_path(moment)%></p>
-			<p>Posted By: <%= link_to User.find(moment.user_id).username, @user %></p>
-			<% @tagged = moment.users.where("user_id != ?", current_user.id) %>
+			<% if current_user.following?(User.find(moment.user_id)) || current_user == User.find(moment.user_id) %>
+				<p>Posted By: <%= link_to User.find(moment.user_id).username, @user %></p>
+			<% else %>
+				<p>Posted By: <%= link_to User.find(moment.user_id).username, @user %></p>
+			<% end %>
+			<% @tagged = moment.users %>
 			<% if @tagged.count > 0 %>
 				<p>Also Tagged: 
 					<% @tagged.each do |user| %> 
 						<% if MomentsUsers.where("moment_id = ? AND user_id = ?", moment.id, user.id).first.approved == true %>
-							<%= link_to user.username, user %>
+							<%= link_to user.username, user %>,
 						<% else %>
-							<%= user.username %>
+							<%= user.username %>,
 						<% end %>
 					<% end %>
 				</p>
 			<% end %>
 			<p>------------------------------------------------------</p>
 		<% end %>
-		<%= render 'moments' %>
 	<% else %>
 		<p>You currently have no moments and are not following anyone with a moment.</p>
 	<% end %>

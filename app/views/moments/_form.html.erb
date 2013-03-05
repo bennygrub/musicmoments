@@ -20,7 +20,7 @@
     <%= f.date_select :year, :order => [:year], :start_year => 1970, :end_year => Time.now.year, :prompt => {:year => "Select Year"} %>
   </div>
   <div class="field">
-    <%= f.label 'Email of Friends (comma seperated)' %><br />
+    <%= f.label 'Email/Username of Friends (comma seperated)' %><br />
     <%= f.text_field :friends %>
   </div>
   <%= f.hidden_field :current_user, :value => current_user.id %>

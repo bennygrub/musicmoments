@@ -1,10 +1,9 @@
 Musicmoments::Application.routes.draw do
-  
-  get "relationships/create"
 
-  get "relationships/destroy"
 
   resources :moments
+  
+  resources :moments_users, only: [:edit, :update, :index, :destroy]
 
 
   devise_for :users

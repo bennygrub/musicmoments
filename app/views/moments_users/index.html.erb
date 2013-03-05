@@ -1,0 +1,14 @@
+<h1>Your Tagged Moments</h1>
+<p>You have been invited to each of the moments below.</p>
+<% @moments_users.each do |moment_user| %>
+	<p>
+		<%= link_to Moment.find(moment_user.moment_id).song, Moment.find(moment_user.moment_id) %>
+		<% if moment_user.approved == false %>
+			<%= render "accept", :moment_user => moment_user %>
+		<% else %>
+			<%= render "unaccept", :moment_user => moment_user %>
+		<% end %>
+		- <%= link_to "delete", moment_user, :method => :delete, :confirm => "Are you sure" %>
+
+	</p>
+<% end %>

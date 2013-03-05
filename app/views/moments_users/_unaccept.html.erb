@@ -1,0 +1,4 @@
+<%= form_for(moment_user) do |f| %>
+	<div><%= f.hidden_field :approved, :value => false %></div>
+	<%= f.submit "UnAccept", class: "btn btn-primary" %>
+<% end %>
