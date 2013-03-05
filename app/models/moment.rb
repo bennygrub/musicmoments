@@ -6,7 +6,7 @@ class Moment < ActiveRecord::Base
 
   before_save :sanitize_url
   after_save :friend_process
-  after_create :self_moment
+  #after_create :self_moment
 
   validates :song, presence: true
   validates :song, :format =>{ :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix, :message => " is not valid, it must be a youtube.com or vimeo.com url" }
