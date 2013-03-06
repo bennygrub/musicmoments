@@ -34,7 +34,7 @@
 		<% if current_user.following?(@user) %>
 			<p><%= render 'unfollow' %></p>
 		<% else %> 
-			<p><%= render 'follow', %></p>
+			<p><%= render 'follow' %></p>
 		<% end %>
 	</div>
 	<div id="user_moments">
